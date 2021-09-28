@@ -1,4 +1,4 @@
-module github.com/mrz1836/go-template/build
+module github.com/mrz1836/go-meta-extractor/build
 
 go 1.16
 

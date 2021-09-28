@@ -16,7 +16,6 @@
 <br/>
 
 ## Table of Contents
-- [About](#about)
 - [Installation](#installation)
 - [Documentation](#documentation)
 - [Examples & Tests](#examples--tests)
@@ -25,16 +24,6 @@
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
-
-<br/>
-
-## About
-This is a GitHub repository starter template for a Go library. It has been created for anyone who wants to:
-
-- Quickly get into Go without losing too much time on environment setup
-- Create a new repository with basic Continuous Integration
-- Cheat codes for all the popular Go patterns
-- **[See: All 15+ Repository Features](#documentation)**
 
 <br/>
 
@@ -47,18 +36,6 @@ make install-tools
 ```
 
 <br/>
-
-<!-- remove-this-section:start -->
-
-#### (Optional) Set up: All Contributors Integration
-1. Follow these [instructions](https://allcontributors.org/docs/en/bot/installation)
-2. Install the local CLI: `make install-all-contributors`
-3. Modify the [.all-contributorsrc](.all-contributorsrc) file
-4. Run `make update-contributors` to update the list of contributors
-
-<br/>
-
-<!-- remove-this-section:end -->
 
 ## Documentation
 View the generated [documentation](https://pkg.go.dev/github.com/mrz1836/go-meta-extractor)

@@ -14,7 +14,7 @@ ifeq ($(REPO_OWNER),)
 	REPO_OWNER="mrz1836"
 endif
 
-.PHONY: clean install-tools
+.PHONY: clean install-all-contributors update-contributors
 
 all: ## Runs multiple commands
 	@$(MAKE) test
@@ -24,10 +24,6 @@ clean: ## Remove previous builds and any cached data
 	@go clean -cache -testcache -i -r
 	@test $(DISTRIBUTIONS_DIR)
 	@if [ -d $(DISTRIBUTIONS_DIR) ]; then rm -r $(DISTRIBUTIONS_DIR); fi
-
-install-tools: ## Install the go tools
-	@echo "installing local Go tools..."
-	@cd tools && go install $(shell cd tools && go list -f '{{ join .Imports " " }}' -tags=tools)
 
 install-all-contributors: ## Installs all contributors locally
 	@echo "installing all-contributors cli tool..."
@@ -39,7 +35,3 @@ release:: ## Runs common.release then runs godocs
 update-contributors: ## Regenerates the contributors html/list
 	@echo "generating contributor html..."
 	@all-contributors generate
-
-update-tools: ## Update all go tools
-	@echo "updating local tool dependencies..."
-	@cd tools && go get -u -v && go mod tidy -v

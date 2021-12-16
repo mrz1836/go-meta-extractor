@@ -41,7 +41,7 @@ func TestTitle(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		title         string
 		mockHTML      string
 		expectedTitle string
@@ -72,7 +72,7 @@ func TestDescription(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		description         string
 		mockHTML            string
 		expectedDescription string
@@ -100,7 +100,7 @@ func TestAuthor(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		author         string
 		mockHTML       string
 		expectedAuthor string
@@ -128,7 +128,7 @@ func TestOGTitle(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		title         string
 		mockHTML      string
 		expectedTitle string
@@ -156,7 +156,7 @@ func TestOGDescription(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		title               string
 		mockHTML            string
 		expectedDescription string
@@ -184,7 +184,7 @@ func TestOGImage(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		image         string
 		mockHTML      string
 		expectedImage string
@@ -211,7 +211,7 @@ func TestOGAuthor(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		author         string
 		mockHTML       string
 		expectedAuthor string
@@ -239,7 +239,7 @@ func TestOGPublisher(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		publisher         string
 		mockHTML          string
 		expectedPublisher string
@@ -266,7 +266,7 @@ func TestOGSiteName(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		siteName         string
 		mockHTML         string
 		expectedSiteName string
@@ -293,7 +293,7 @@ func TestTwitterTitle(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		title         string
 		mockHTML      string
 		expectedTitle string
@@ -321,7 +321,7 @@ func TestTwitterDescription(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		title               string
 		mockHTML            string
 		expectedDescription string
@@ -349,7 +349,7 @@ func TestTwitterImage(t *testing.T) {
 	t.Parallel()
 
 	// Create the list of tests
-	var tests = []struct {
+	tests := []struct {
 		image         string
 		mockHTML      string
 		expectedImage string
@@ -383,6 +383,10 @@ func TestFullExtraction(t *testing.T) {
 	ogAuthor := "MrZ"
 	ogPublisher := "mrz"
 	ogSiteName := "TheSite"
+	twitterCard := "player"
+	twitterPlayer := "https://www.youtube.com/watch?v=DoppJNHX1eY"
+	twitterPlayerWidth := "1280"
+	twitterPlayerHeight := "720"
 
 	mp := NewMockPage(`
 	<html>
@@ -398,6 +402,12 @@ func TestFullExtraction(t *testing.T) {
 			<meta property="og:author" content="` + ogAuthor + `" />
 			<meta property="og:publisher" content="` + ogPublisher + `" />
 			<meta property="og:site_name" content="` + ogSiteName + `" />
+			<meta property="twitter:site" content="` + ogSiteName + `" />
+			<meta property="twitter:card" content="` + twitterCard + `" />
+			<meta property="twitter:player" content="` + twitterPlayer + `" />
+			<meta property="twitter:player:width" content="` + twitterPlayerWidth + `" />
+			<meta property="twitter:player:height" content="` + twitterPlayerHeight + `" />
+
 		</head>
 		<body>
 			We're testing!
@@ -419,11 +429,14 @@ func TestFullExtraction(t *testing.T) {
 	assert.Equal(t, ogAuthor, hm.OGAuthor)
 	assert.Equal(t, ogPublisher, hm.OGPublisher)
 	assert.Equal(t, ogSiteName, hm.OGSiteName)
+	assert.Equal(t, twitterCard, hm.TwitterCard)
+	assert.Equal(t, twitterPlayer, hm.TwitterPlayer)
+	assert.Equal(t, twitterPlayerWidth, hm.TwitterPlayerWidth)
+	assert.Equal(t, twitterPlayerHeight, hm.TwitterPlayerHeight)
 }
 
 // ExampleExtract will show an example using the extractor
 func ExampleExtract() {
-
 	// Set a client
 	client := &http.Client{Timeout: 20 * time.Second}
 
@@ -455,7 +468,6 @@ func ExampleExtract() {
 
 // BenchmarkExtract benchmarks the method Extract()
 func BenchmarkExtract(b *testing.B) {
-
 	title := "Test Title"
 	description := "Test description"
 	ogTitle := "OG Test Title"

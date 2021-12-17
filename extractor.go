@@ -14,7 +14,6 @@ import (
 
 // Extract is the method used to extract HTML tags
 func Extract(resp io.Reader) (tags Tags) {
-
 	// Tokenize the response
 	z := html.NewTokenizer(resp)
 
@@ -100,6 +99,20 @@ func Extract(resp io.Reader) (tags Tags) {
 					if len(tags.OGImage) == 0 {
 						tags.OGImage = value
 					}
+				}
+
+				if value, ok = extractMetaProperty(t, TagTwitterCard); ok {
+					tags.TwitterCard = value
+				}
+
+				if value, ok = extractMetaProperty(t, TagTwitterPlayer); ok {
+					tags.TwitterPlayer = value
+				}
+				if value, ok = extractMetaProperty(t, TagTwitterPlayerWidth); ok {
+					tags.TwitterPlayerWidth = value
+				}
+				if value, ok = extractMetaProperty(t, TagTwitterPlayerHeight); ok {
+					tags.TwitterPlayerHeight = value
 				}
 			}
 		case html.TextToken:

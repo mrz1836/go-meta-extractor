@@ -3,7 +3,7 @@ module github.com/mrz1836/go-meta-extractor
 go 1.19
 
 require (
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	golang.org/x/net v0.21.0
 )
 

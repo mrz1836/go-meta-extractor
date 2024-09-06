@@ -8,7 +8,7 @@ before:
   hooks:
     - make all
 snapshot:
-  name_template: "{{ .Tag }}"
+  version_template: "{{ .Tag }}"
 changelog:
   sort: asc
   filters:
@@ -40,7 +40,7 @@ builds:
 # Github Release
 # ---------------------------
 release:
-  prerelease: true
+  prerelease: false
   name_template: "Release v{{.Version}}"
 
 # ---------------------------

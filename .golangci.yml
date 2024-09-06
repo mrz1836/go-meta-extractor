@@ -294,7 +294,7 @@ linters:
     - misspell
     - dogsled
     - prealloc
-    - exportloopref
+    - copyloopvar
     - exhaustive
     - sqlclosecheck
     - nolintlint

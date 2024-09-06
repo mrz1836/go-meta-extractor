@@ -1,6 +1,6 @@
 module github.com/mrz1836/go-meta-extractor
 
-go 1.19
+go 1.22
 
 require (
 	github.com/stretchr/testify v1.9.0

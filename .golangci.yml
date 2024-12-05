@@ -338,7 +338,6 @@ linters:
     - godot # some comments do not end in a period
     - godox # finds all the HACKs
     - err113 # requires a lot of fixes for errors with wrapping
-    - gomnd # we have too many raw numbers that are not magic
     - gomoddirectives # we use replace as needed
     - nilnil # we do not conform to this
     #- contextcheck # having issues with this

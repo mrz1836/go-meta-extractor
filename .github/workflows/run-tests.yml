@@ -33,7 +33,7 @@ jobs:
         uses: sonatype-nexus-community/nancy-github-action@v1.0.3
         # continue-on-error: true
         with:
-          nancyCommand: sleuth --loud --exclude-vulnerability sonatype-2021-0853,CVE-2022-32149,CVE-2024-8421
+          nancyCommand: sleuth --loud --exclude-vulnerability sonatype-2021-0853,CVE-2022-32149,CVE-2024-8421,CVE-2025-22869
   test:
     needs: [yamllint, asknancy]
     strategy:

@@ -1,10 +1,11 @@
 module github.com/mrz1836/go-meta-extractor
 
 go 1.22
+toolchain go1.23.7
 
 require (
 	github.com/stretchr/testify v1.10.0
-	golang.org/x/net v0.35.0
+	golang.org/x/net v0.36.0
 )
 
 require (

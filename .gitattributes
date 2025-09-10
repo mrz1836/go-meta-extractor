@@ -11,6 +11,3 @@
 *.jpg binary
 *.gif binary
 *.svg text
-
-# Fuzz test
-testdata

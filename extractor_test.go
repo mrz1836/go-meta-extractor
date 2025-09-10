@@ -501,3 +501,98 @@ func BenchmarkExtract(b *testing.B) {
 		_ = Extract(&mp)
 	}
 }
+
+// TestTruncateField tests the truncateField helper function
+func TestTruncateField(t *testing.T) {
+	t.Parallel()
+
+	// Test cases
+	tests := []struct {
+		name     string
+		input    string
+		maxLen   int
+		expected string
+	}{
+		{
+			name:     "String shorter than limit",
+			input:    "short string",
+			maxLen:   100,
+			expected: "short string",
+		},
+		{
+			name:     "String equal to limit",
+			input:    "exactly",
+			maxLen:   7,
+			expected: "exactly",
+		},
+		{
+			name:     "String longer than limit",
+			input:    "this is a very long string that exceeds the limit",
+			maxLen:   20,
+			expected: "this is a very long ",
+		},
+		{
+			name:     "Empty string",
+			input:    "",
+			maxLen:   10,
+			expected: "",
+		},
+		{
+			name:     "Zero max length",
+			input:    "some text",
+			maxLen:   0,
+			expected: "",
+		},
+		{
+			name:     "Unicode characters - no truncation",
+			input:    "Hello \u4e16\u754c", // "Hello 世界"
+			maxLen:   15,
+			expected: "Hello \u4e16\u754c",
+		},
+		{
+			name:     "Unicode characters - with truncation",
+			input:    "Hello \u4e16\u754c! \U0001F30D", // "Hello 世界! 🌍"
+			maxLen:   12,
+			expected: "Hello \u4e16\u754c",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := truncateField(test.input, test.maxLen)
+			assert.Equal(t, test.expected, result)
+			assert.LessOrEqual(t, len(result), test.maxLen)
+		})
+	}
+}
+
+// TestLargeFieldTruncation tests that large fields are properly truncated
+func TestLargeFieldTruncation(t *testing.T) {
+	t.Parallel()
+
+	// Create a very large string that exceeds MaxFieldLength
+	largeContent := strings.Repeat("A", MaxFieldLength+5000)
+
+	// Test title truncation
+	reader1 := strings.NewReader(`<html><head><title>` + largeContent + `</title></head></html>`)
+	tags := Extract(reader1)
+
+	assert.LessOrEqual(t, len(tags.Title), MaxFieldLength)
+	assert.Equal(t, strings.Repeat("A", MaxFieldLength), tags.Title)
+
+	// Test meta description truncation
+	reader2 := strings.NewReader(`<html><head><meta name="description" content="` + largeContent + `"/></head></html>`)
+	tags2 := Extract(reader2)
+
+	assert.LessOrEqual(t, len(tags2.Description), MaxFieldLength)
+	assert.Equal(t, strings.Repeat("A", MaxFieldLength), tags2.Description)
+
+	// Test OG title truncation
+	reader3 := strings.NewReader(`<html><head><meta property="og:title" content="` + largeContent + `"/></head></html>`)
+	tags3 := Extract(reader3)
+
+	assert.LessOrEqual(t, len(tags3.OGTitle), MaxFieldLength)
+	assert.LessOrEqual(t, len(tags3.Title), MaxFieldLength) // Should also truncate fallback Title
+	assert.Equal(t, strings.Repeat("A", MaxFieldLength), tags3.OGTitle)
+	assert.Equal(t, strings.Repeat("A", MaxFieldLength), tags3.Title)
+}

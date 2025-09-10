@@ -39,92 +39,113 @@ func Extract(resp io.Reader) (tags Tags) {
 			if t.Data == TagMeta {
 
 				if value, ok = extractMetaProperty(t, TagMetaDescription); ok {
-					tags.Description = value
+					tags.Description = truncateField(value, MaxFieldLength)
 				}
 
 				if value, ok = extractMetaProperty(t, TagMetaAuthor); ok {
-					tags.Author = value
+					tags.Author = truncateField(value, MaxFieldLength)
 				}
 
 				if value, ok = extractMetaProperty(t, TagOGTitle); ok {
-					tags.OGTitle = value
+					tags.OGTitle = truncateField(value, MaxFieldLength)
 					if len(tags.Title) == 0 {
-						tags.Title = value
+						tags.Title = truncateField(value, MaxFieldLength)
 					}
 				}
 
 				if value, ok = extractMetaProperty(t, TagOGDescription); ok {
-					tags.OGDescription = value
+					tags.OGDescription = truncateField(value, MaxFieldLength)
 					if len(tags.Description) == 0 {
-						tags.Description = value
+						tags.Description = truncateField(value, MaxFieldLength)
 					}
 				}
 
 				if value, ok = extractMetaProperty(t, TagOGImage); ok {
-					tags.OGImage = value
+					tags.OGImage = truncateField(value, MaxFieldLength)
 				}
 
 				if value, ok = extractMetaProperty(t, TagOGSiteName); ok {
-					tags.OGSiteName = value
+					tags.OGSiteName = truncateField(value, MaxFieldLength)
 				}
 
 				if value, ok = extractMetaProperty(t, TagOGPublisher); ok {
-					tags.OGPublisher = value
+					tags.OGPublisher = truncateField(value, MaxFieldLength)
 				}
 
 				if value, ok = extractMetaProperty(t, TagOGAuthor); ok {
-					tags.OGAuthor = value
+					tags.OGAuthor = truncateField(value, MaxFieldLength)
 					if len(tags.Author) == 0 {
-						tags.Author = value
+						tags.Author = truncateField(value, MaxFieldLength)
 					}
 				}
 
 				// Twitter card (use if OG not found)
 				if value, ok = extractMetaProperty(t, TagTwitterTitle); ok {
-					tags.TwitterTitle = value
+					tags.TwitterTitle = truncateField(value, MaxFieldLength)
 					if len(tags.Title) == 0 {
-						tags.Title = value
+						tags.Title = truncateField(value, MaxFieldLength)
 					}
 				}
 
 				if value, ok = extractMetaProperty(t, TagTwitterDescription); ok {
-					tags.TwitterDescription = value
+					tags.TwitterDescription = truncateField(value, MaxFieldLength)
 					if len(tags.Description) == 0 {
-						tags.Description = value
+						tags.Description = truncateField(value, MaxFieldLength)
 					}
 				}
 
 				if value, ok = extractMetaProperty(t, TagTwitterImage); ok {
-					tags.TwitterImage = value
+					tags.TwitterImage = truncateField(value, MaxFieldLength)
 					if len(tags.OGImage) == 0 {
-						tags.OGImage = value
+						tags.OGImage = truncateField(value, MaxFieldLength)
 					}
 				}
 
 				if value, ok = extractMetaProperty(t, TagTwitterCard); ok {
-					tags.TwitterCard = value
+					tags.TwitterCard = truncateField(value, MaxFieldLength)
 				}
 
 				if value, ok = extractMetaProperty(t, TagTwitterPlayer); ok {
-					tags.TwitterPlayer = value
+					tags.TwitterPlayer = truncateField(value, MaxFieldLength)
 				}
 				if value, ok = extractMetaProperty(t, TagTwitterPlayerWidth); ok {
-					tags.TwitterPlayerWidth = value
+					tags.TwitterPlayerWidth = truncateField(value, MaxFieldLength)
 				}
 				if value, ok = extractMetaProperty(t, TagTwitterPlayerHeight); ok {
-					tags.TwitterPlayerHeight = value
+					tags.TwitterPlayerHeight = truncateField(value, MaxFieldLength)
 				}
 			}
 		case html.TextToken:
 			if titleFound {
 				t := z.Token()
-				tags.Title = t.Data
+				tags.Title = truncateField(t.Data, MaxFieldLength)
 				titleFound = false
 			}
 		case html.CommentToken, html.DoctypeToken, html.EndTagToken:
 			continue
 		}
 	}
+}
+
+// truncateField truncates a string to maxLen bytes if it exceeds that limit
+// It handles Unicode properly by ensuring we don't truncate in the middle of a character
+func truncateField(s string, maxLen int) string {
+	if len(s) <= maxLen {
+		return s
+	}
+
+	// Ensure we don't cut in the middle of a UTF-8 character
+	// by finding the last valid rune boundary within maxLen bytes
+	for i := maxLen; i >= 0; i-- {
+		if i == 0 {
+			return ""
+		}
+		if s[i]>>6 != 2 { // This byte is not a continuation byte (0b10xxxxxx)
+			return s[:i]
+		}
+	}
+
+	return ""
 }
 
 // extractMetaProperty will extract meta properties from HTML

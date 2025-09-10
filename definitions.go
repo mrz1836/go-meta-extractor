@@ -23,6 +23,9 @@ type Tags struct {
 // todo: parse the apple mobile title
 // <meta name="apple-mobile-web-app-title" content="SiteTitle"/>
 
+// MaxFieldLength defines the maximum length for any extracted field to prevent memory issues
+const MaxFieldLength = 10000
+
 // Tag and Property constants for parsing
 const (
 	TagBody                = "body"

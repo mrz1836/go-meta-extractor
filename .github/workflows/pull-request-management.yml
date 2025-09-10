@@ -732,16 +732,7 @@ jobs:
   summary:
     name: 📊 Generate Summary
     if: always()
-    needs:
-      [
-        load-env,
-        apply-labels,
-        assign-assignee,
-        welcome-contributor,
-        analyze-size,
-        clean-cache,
-        delete-branch,
-      ]
+    needs: [load-env, apply-labels, assign-assignee, welcome-contributor, analyze-size, clean-cache, delete-branch]
     runs-on: ubuntu-latest
     steps:
       # ————————————————————————————————————————————————————————————————

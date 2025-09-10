@@ -140,8 +140,7 @@ linters-settings:
       regexp:
       # define here regexp type values, for example
       # AUTHOR: .*@mycompany\.com
-    template:
-      ""
+    template: ""
   goimports:
     # put imports beginning with prefix after 3rd-party packages;
     # it's a comma-separated list of prefixes
@@ -150,7 +149,6 @@ linters-settings:
     # minimal confidence for issues, default is 0.8
     min-confidence: 0.8
   govet:
-
     # settings per analyzer
     settings:
       printf: # analyzer name, run `go tool vet help` to see all analyzers
@@ -232,7 +230,7 @@ linters-settings:
   # with golangci-lint call it on a directory with the changed file.
   #check-exported: false
   whitespace:
-    multi-if: false   # Enforces newlines (or comments) after every multi-line if statement
+    multi-if: false # Enforces newlines (or comments) after every multi-line if statement
     multi-func: false # Enforces newlines (or comments) after every multi-line function signature
   wsl:
     # If true append is only allowed to be cuddled if appending value is
@@ -342,7 +340,6 @@ linters:
     check-all: false
 
 issues:
-
   exclude-dirs-use-default: true
   uniq-by-line: true
 

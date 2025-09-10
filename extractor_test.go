@@ -59,7 +59,7 @@ func TestTitle(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{title}}", test.title, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{title}}", test.title))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -87,7 +87,7 @@ func TestDescription(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{description}}", test.description, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{description}}", test.description))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -115,7 +115,7 @@ func TestAuthor(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{author}}", test.author, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{author}}", test.author))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -142,7 +142,7 @@ func TestOGTitle(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{title}}", test.title, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{title}}", test.title))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -170,7 +170,7 @@ func TestOGDescription(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{description}}", test.title, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{description}}", test.title))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -198,7 +198,7 @@ func TestOGImage(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{image}}", test.image, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{image}}", test.image))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -225,7 +225,7 @@ func TestOGAuthor(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{author}}", test.author, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{author}}", test.author))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -253,7 +253,7 @@ func TestOGPublisher(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{publisher}}", test.publisher, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{publisher}}", test.publisher))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -280,7 +280,7 @@ func TestOGSiteName(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{site_name}}", test.siteName, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{site_name}}", test.siteName))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -307,7 +307,7 @@ func TestTwitterTitle(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{title}}", test.title, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{title}}", test.title))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -335,7 +335,7 @@ func TestTwitterDescription(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{description}}", test.title, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{description}}", test.title))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -363,7 +363,7 @@ func TestTwitterImage(t *testing.T) {
 
 	// Test all
 	for _, test := range tests {
-		mp := NewMockPage(strings.Replace(test.mockHTML, "{{image}}", test.image, -1))
+		mp := NewMockPage(strings.ReplaceAll(test.mockHTML, "{{image}}", test.image))
 		assert.NotNil(t, mp)
 		hm := Extract(&mp)
 		assert.NotNil(t, hm)
@@ -463,7 +463,7 @@ func ExampleExtract() {
 	tags := Extract(resp.Body)
 
 	fmt.Println(tags.Author)
-	// Output:MrZ, Proof of Work LLC
+	// Output:Austin Rappaport (MrZ)
 }
 
 // BenchmarkExtract benchmarks the method Extract()

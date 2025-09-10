@@ -1,3 +1,5 @@
+// Package main demonstrates how to use the go-meta-extractor library
+// to extract meta tags from a web page
 package main
 
 import (
@@ -11,7 +13,6 @@ import (
 )
 
 func main() {
-
 	// Set a client
 	client := &http.Client{Timeout: 10 * time.Second}
 
@@ -38,6 +39,9 @@ func main() {
 	tags := metaextractor.Extract(resp.Body)
 
 	// Show the tags we found:
-	jsonData, _ := json.Marshal(tags)
+	jsonData, err := json.Marshal(tags)
+	if err != nil {
+		log.Fatal(err)
+	}
 	log.Println(string(jsonData))
 }

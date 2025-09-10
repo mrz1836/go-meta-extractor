@@ -27,11 +27,11 @@ func Extract(resp io.Reader) (tags Tags) {
 		tt := z.Next()
 		switch tt {
 		case html.ErrorToken:
-			return
+			return tags
 		case html.StartTagToken, html.SelfClosingTagToken:
 			t := z.Token()
 			if t.Data == TagBody {
-				return
+				return tags
 			}
 			if t.Data == TagTitle {
 				titleFound = true

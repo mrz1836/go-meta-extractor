@@ -1,5 +1,5 @@
-# go-meta-extractor
-> 🔍 Meta Intelligence for Go: Extract, Analyze, Excel
+# 🔍 go-meta-extractor
+> Meta Intelligence for Go: Extract, Analyze, Excel
 
 <table>
   <thead>
@@ -91,7 +91,7 @@
 
 **go-meta-extractor** requires a [supported release of Go](https://golang.org/doc/devel/release.html#policy).
 ```shell script
-go get -u github.com/mrz1836/go-meta-extractor
+go get github.com/mrz1836/go-meta-extractor
 ```
 
 <br/>

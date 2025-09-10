@@ -28,11 +28,46 @@ gin-bin
 *.so
 *.dylib
 
+# Byte-compiled / optimized / DLL files
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.py[cod]
+*$py.class
+.pytest_cache/
+..mypy_cache/
+
 # Test binary, build with `go test -c`
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Custom repo notes
-/todo.md
+# Virtual environments
+.venv
+../venv
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Temporary directories in the project
+bin
+tmp
+
+# Project files not needed in the container
+.cursorrules
+.editorconfig
+.github
+.gitpod.yml
+.golangci.json
+.golangci.yml
+.goreleaser.yml
+.vscode
+docs
+LICENSE
+README.md
+codecov.yml

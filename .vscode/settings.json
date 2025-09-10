@@ -1,23 +1,26 @@
 {
-  "go.useLanguageServer": true,
-  "gopls": {
-    "gofumpt": true
-  },
-  "[go]": {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+    "[go]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[go.mod]": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "go.useLanguageServer": true,
+    "gopls": {
+        "formatting.local": "github.com/mrz1836/go-meta-extractor",
+        "formatting.gofumpt": true
+    },
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": ["--verbose"],
+    "[go][go.mod]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
     }
-  },
-  "[go.mod]": {
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
-  },
-
-  "go.lintTool": "golangci-lint",
-  "go.lintFlags": [
-    "--fast"
-  ]
 }

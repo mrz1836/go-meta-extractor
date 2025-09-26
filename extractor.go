@@ -161,5 +161,5 @@ func extractMetaProperty(t html.Token, prop string) (content string, ok bool) {
 		}
 	}
 
-	return
+	return content, ok
 }

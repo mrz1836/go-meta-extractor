@@ -147,6 +147,11 @@
                     "ATTENTION"
                 ]
             },
+            "gomoddirectives": {
+                "replace-allow-list": [
+                    "golang.org/x/crypto"
+                ]
+            },
             "govet": {
                 "enable": [
                     "atomicalign",

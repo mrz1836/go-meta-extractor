@@ -450,7 +450,7 @@ func ExampleExtract() {
 
 	// Fire the request
 	var resp *http.Response
-	if resp, err = client.Do(req); err != nil {
+	if resp, err = client.Do(req); err != nil { //nolint:gosec // G704: hardcoded URL, not user-supplied input
 		log.Fatal(err)
 	}
 

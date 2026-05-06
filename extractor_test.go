@@ -13,6 +13,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	testTitle       = "Test Title"
+	testDescription = "Test Description"
+	testAuthor      = "Test Author"
+	testImageURL    = "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"
+	testHandle      = "mrz"
+)
+
 // MockPage is for creating a mock page of content
 type MockPage struct {
 	Content string
@@ -46,9 +54,9 @@ func TestTitle(t *testing.T) {
 		mockHTML      string
 		expectedTitle string
 	}{
-		{"Test Title", `<html><head><title>{{title}}</title></head></html>`, "Test Title"},
+		{testTitle, `<html><head><title>{{title}}</title></head></html>`, testTitle},
 		{"Funky! <characters>", `<html><head><title>{{title}}</title></head></html>`, "Funky! <characters>"},
-		{"Test Title", `<html><head><TITLE>{{title}}</TITLE></head></html>`, "Test Title"},
+		{testTitle, `<html><head><TITLE>{{title}}</TITLE></head></html>`, testTitle},
 		{"", `<html><head><TITLE></TITLE></head></html>`, ""},
 		{"", `<html><head><meta property="og:title" content="SomeName"/><title data-react-helmet="true"></title></head></html>`, "SomeName"},
 		{"", `<html><head><title data-react-helmet="true"></title></head></html>`, ""},
@@ -77,11 +85,11 @@ func TestDescription(t *testing.T) {
 		mockHTML            string
 		expectedDescription string
 	}{
-		{"Test Description", `<html><head><meta property="description" content="{{description}}"></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta content="{{description}}" property="description"></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta content='{{description}}' property='description'></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><META CONTENT='{{description}}' PROPERTY='description'></head><body></body></html>`, "Test Description"},
-		{"Test Description", `<html><head><META CONTENT='{{description}}' PROPERTY='description' /></head><body></body></html>`, "Test Description"},
+		{testDescription, `<html><head><meta property="description" content="{{description}}"></head></html>`, testDescription},
+		{testDescription, `<html><head><meta content="{{description}}" property="description"></head></html>`, testDescription},
+		{testDescription, `<html><head><meta content='{{description}}' property='description'></head></html>`, testDescription},
+		{testDescription, `<html><head><META CONTENT='{{description}}' PROPERTY='description'></head><body></body></html>`, testDescription},
+		{testDescription, `<html><head><META CONTENT='{{description}}' PROPERTY='description' /></head><body></body></html>`, testDescription},
 		{"", `<html><head><meta content='' property='description'></head></html>`, ""},
 	}
 
@@ -105,11 +113,11 @@ func TestAuthor(t *testing.T) {
 		mockHTML       string
 		expectedAuthor string
 	}{
-		{"Test Author", `<html><head><meta property="author" content="{{author}}"></head></html>`, "Test Author"},
-		{"Test Author", `<html><head><meta content="{{author}}" property="author"></head></html>`, "Test Author"},
-		{"Test Author", `<html><head><meta content='{{author}}' property='author'></head></html>`, "Test Author"},
-		{"Test Author", `<html><head><META CONTENT='{{author}}' PROPERTY='author'></head><body></body></html>`, "Test Author"},
-		{"Test Author", `<html><head><META CONTENT='{{author}}' PROPERTY='author' /></head><body></body></html>`, "Test Author"},
+		{testAuthor, `<html><head><meta property="author" content="{{author}}"></head></html>`, testAuthor},
+		{testAuthor, `<html><head><meta content="{{author}}" property="author"></head></html>`, testAuthor},
+		{testAuthor, `<html><head><meta content='{{author}}' property='author'></head></html>`, testAuthor},
+		{testAuthor, `<html><head><META CONTENT='{{author}}' PROPERTY='author'></head><body></body></html>`, testAuthor},
+		{testAuthor, `<html><head><META CONTENT='{{author}}' PROPERTY='author' /></head><body></body></html>`, testAuthor},
 		{"", `<html><head><meta content='' property='author'></head></html>`, ""},
 	}
 
@@ -133,10 +141,10 @@ func TestOGTitle(t *testing.T) {
 		mockHTML      string
 		expectedTitle string
 	}{
-		{"Test Title", `<html><head><meta property='og:title' content='{{title}}' /></head></html>`, "Test Title"},
-		{"Test Title", `<html><head><meta property="og:title" content="{{title}}" /></head></html>`, "Test Title"},
-		{"Test Title", `<html><head><meta content='{{title}}' property='og:title' /></head></html>`, "Test Title"},
-		{"Test Title", `<html><head><meta content='{{title}}' property='og:title'></head></html>`, "Test Title"},
+		{testTitle, `<html><head><meta property='og:title' content='{{title}}' /></head></html>`, testTitle},
+		{testTitle, `<html><head><meta property="og:title" content="{{title}}" /></head></html>`, testTitle},
+		{testTitle, `<html><head><meta content='{{title}}' property='og:title' /></head></html>`, testTitle},
+		{testTitle, `<html><head><meta content='{{title}}' property='og:title'></head></html>`, testTitle},
 		{"", `<html><head><meta content='{{title}}' property='og:title'></head></html>`, ""},
 	}
 
@@ -161,10 +169,10 @@ func TestOGDescription(t *testing.T) {
 		mockHTML            string
 		expectedDescription string
 	}{
-		{"Test Description", `<html><head><meta property='og:description' content='{{description}}' /></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta property="og:description" content="{{description}}" /></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta content='{{description}}' property='og:description' /></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta content='{{description}}' property='og:description'></head></html>`, "Test Description"},
+		{testDescription, `<html><head><meta property='og:description' content='{{description}}' /></head></html>`, testDescription},
+		{testDescription, `<html><head><meta property="og:description" content="{{description}}" /></head></html>`, testDescription},
+		{testDescription, `<html><head><meta content='{{description}}' property='og:description' /></head></html>`, testDescription},
+		{testDescription, `<html><head><meta content='{{description}}' property='og:description'></head></html>`, testDescription},
 		{"", `<html><head><meta content='{{description}}' property='og:description'></head></html>`, ""},
 	}
 
@@ -189,10 +197,10 @@ func TestOGImage(t *testing.T) {
 		mockHTML      string
 		expectedImage string
 	}{
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta property='og:image' content='{{image}}' /></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta property="og:image" content="{{image}}" /></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta content='{{image}}' property='og:image' /></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta content='{{image}}' property='og:image'></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
+		{testImageURL, `<html><head><meta property='og:image' content='{{image}}' /></head></html>`, testImageURL},
+		{testImageURL, `<html><head><meta property="og:image" content="{{image}}" /></head></html>`, testImageURL},
+		{testImageURL, `<html><head><meta content='{{image}}' property='og:image' /></head></html>`, testImageURL},
+		{testImageURL, `<html><head><meta content='{{image}}' property='og:image'></head></html>`, testImageURL},
 		{"", `<html><head><meta content='{{image}}' property='og:image'></head></html>`, ""},
 	}
 
@@ -216,10 +224,10 @@ func TestOGAuthor(t *testing.T) {
 		mockHTML       string
 		expectedAuthor string
 	}{
-		{"mrz", `<html><head><meta property='og:author' content='{{author}}' /></head></html>`, "mrz"},
-		{"mrz", `<html><head><meta property="og:author" content="{{author}}" /></head></html>`, "mrz"},
-		{"mrz", `<html><head><meta content='{{author}}' property='og:author' /></head></html>`, "mrz"},
-		{"mrz", `<html><head><meta content='{{author}}' property='og:author'></head></html>`, "mrz"},
+		{testHandle, `<html><head><meta property='og:author' content='{{author}}' /></head></html>`, testHandle},
+		{testHandle, `<html><head><meta property="og:author" content="{{author}}" /></head></html>`, testHandle},
+		{testHandle, `<html><head><meta content='{{author}}' property='og:author' /></head></html>`, testHandle},
+		{testHandle, `<html><head><meta content='{{author}}' property='og:author'></head></html>`, testHandle},
 		{"", `<html><head><meta content='{{author}}' property='og:author'></head></html>`, ""},
 	}
 
@@ -244,10 +252,10 @@ func TestOGPublisher(t *testing.T) {
 		mockHTML          string
 		expectedPublisher string
 	}{
-		{"mrz", `<html><head><meta property='og:publisher' content='{{publisher}}' /></head></html>`, "mrz"},
-		{"mrz", `<html><head><meta property="og:publisher" content="{{publisher}}" /></head></html>`, "mrz"},
-		{"mrz", `<html><head><meta content='{{publisher}}' property='og:publisher' /></head></html>`, "mrz"},
-		{"mrz", `<html><head><meta content='{{publisher}}' property='og:publisher'></head></html>`, "mrz"},
+		{testHandle, `<html><head><meta property='og:publisher' content='{{publisher}}' /></head></html>`, testHandle},
+		{testHandle, `<html><head><meta property="og:publisher" content="{{publisher}}" /></head></html>`, testHandle},
+		{testHandle, `<html><head><meta content='{{publisher}}' property='og:publisher' /></head></html>`, testHandle},
+		{testHandle, `<html><head><meta content='{{publisher}}' property='og:publisher'></head></html>`, testHandle},
 		{"", `<html><head><meta content='{{publisher}}' property='og:publisher'></head></html>`, ""},
 	}
 
@@ -298,10 +306,10 @@ func TestTwitterTitle(t *testing.T) {
 		mockHTML      string
 		expectedTitle string
 	}{
-		{"Test Title", `<html><head><meta property='twitter:title' content='{{title}}' /></head></html>`, "Test Title"},
-		{"Test Title", `<html><head><meta property="twitter:title" content="{{title}}" /></head></html>`, "Test Title"},
-		{"Test Title", `<html><head><meta content='{{title}}' property='twitter:title' /></head></html>`, "Test Title"},
-		{"Test Title", `<html><head><meta content='{{title}}' property='twitter:title'></head></html>`, "Test Title"},
+		{testTitle, `<html><head><meta property='twitter:title' content='{{title}}' /></head></html>`, testTitle},
+		{testTitle, `<html><head><meta property="twitter:title" content="{{title}}" /></head></html>`, testTitle},
+		{testTitle, `<html><head><meta content='{{title}}' property='twitter:title' /></head></html>`, testTitle},
+		{testTitle, `<html><head><meta content='{{title}}' property='twitter:title'></head></html>`, testTitle},
 		{"", `<html><head><meta content='{{title}}' property='twitter:title'></head></html>`, ""},
 	}
 
@@ -326,10 +334,10 @@ func TestTwitterDescription(t *testing.T) {
 		mockHTML            string
 		expectedDescription string
 	}{
-		{"Test Description", `<html><head><meta property='twitter:description' content='{{description}}' /></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta property="twitter:description" content="{{description}}" /></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta content='{{description}}' property='twitter:description' /></head></html>`, "Test Description"},
-		{"Test Description", `<html><head><meta content='{{description}}' property='twitter:description'></head></html>`, "Test Description"},
+		{testDescription, `<html><head><meta property='twitter:description' content='{{description}}' /></head></html>`, testDescription},
+		{testDescription, `<html><head><meta property="twitter:description" content="{{description}}" /></head></html>`, testDescription},
+		{testDescription, `<html><head><meta content='{{description}}' property='twitter:description' /></head></html>`, testDescription},
+		{testDescription, `<html><head><meta content='{{description}}' property='twitter:description'></head></html>`, testDescription},
 		{"", `<html><head><meta content='{{description}}' property='twitter:description'></head></html>`, ""},
 	}
 
@@ -354,10 +362,10 @@ func TestTwitterImage(t *testing.T) {
 		mockHTML      string
 		expectedImage string
 	}{
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta property='twitter:image' content='{{image}}' /></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta property="twitter:image" content="{{image}}" /></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta content='{{image}}' property='twitter:image' /></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
-		{"https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif", `<html><head><meta content='{{image}}' property='twitter:image'></head></html>`, "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"},
+		{testImageURL, `<html><head><meta property='twitter:image' content='{{image}}' /></head></html>`, testImageURL},
+		{testImageURL, `<html><head><meta property="twitter:image" content="{{image}}" /></head></html>`, testImageURL},
+		{testImageURL, `<html><head><meta content='{{image}}' property='twitter:image' /></head></html>`, testImageURL},
+		{testImageURL, `<html><head><meta content='{{image}}' property='twitter:image'></head></html>`, testImageURL},
 		{"", `<html><head><meta content='{{image}}' property='twitter:image'></head></html>`, ""},
 	}
 
@@ -375,13 +383,13 @@ func TestTwitterImage(t *testing.T) {
 func TestFullExtraction(t *testing.T) {
 	t.Parallel()
 
-	title := "Test Title"
+	title := testTitle
 	description := "Test description"
 	ogTitle := "OG Test Title"
 	ogDesc := "OG Test description"
-	ogImage := "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"
+	ogImage := testImageURL
 	ogAuthor := "MrZ"
-	ogPublisher := "mrz"
+	ogPublisher := testHandle
 	ogSiteName := "TheSite"
 	twitterCard := "player"
 	twitterPlayer := "https://www.youtube.com/watch?v=DoppJNHX1eY"
@@ -468,13 +476,13 @@ func ExampleExtract() {
 
 // BenchmarkExtract benchmarks the method Extract()
 func BenchmarkExtract(b *testing.B) {
-	title := "Test Title"
+	title := testTitle
 	description := "Test description"
 	ogTitle := "OG Test Title"
 	ogDesc := "OG Test description"
-	ogImage := "https://www.google.com/logos/doodles/2015/googles-new-logo-5078286822539264.2-hp.gif"
+	ogImage := testImageURL
 	ogAuthor := "MrZ"
-	ogPublisher := "mrz"
+	ogPublisher := testHandle
 	ogSiteName := "TheSite"
 
 	mp := NewMockPage(`
